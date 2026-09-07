@@ -55,7 +55,7 @@
 
 ### 4) Patient Management
 
-- Status: **In Progress**
+- Status: **Done**
 - Business goal (MVP v1): registrasi pasien + administrasi data pasien.
 - Checklist:
   - [x] Migration/model `patients`
@@ -67,14 +67,14 @@
 
 ### 5) Doctor Management
 
-- Status: **Planned**
+- Status: **In Progress**
 - Business goal (MVP v1): input dan pengelolaan profil dokter.
 - Checklist:
-  - [ ] Migration/model `doctors`
-  - [ ] Relasi `doctors.user_id -> users.id`
-  - [ ] Validasi `specialization`
-  - [ ] CRUD routes + controller
-  - [ ] Seeder/creator doctor sesuai role `Dokter`
+  - [x] Migration/model `doctors`
+  - [x] Relasi `doctors.user_id -> users.id`
+  - [x] Validasi `specialization`
+  - [x] CRUD routes + controller
+  - [x] Pemilihan akun dokter sesuai role `Dokter`
 
 ### 6) Schedule (Jadwal Dokter)
 

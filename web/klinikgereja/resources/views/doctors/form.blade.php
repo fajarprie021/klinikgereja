@@ -1,0 +1,4 @@
+@if ($errors->any())<div class="text-red-600">{{ $errors->first() }}</div>@endif
+<label class="block"><span class="text-gray-700">Doctor account</span><select class="mt-1 block w-full rounded border-gray-300" name="user_id" required><option value="">Select account</option>@foreach ($users as $user)<option value="{{ $user->id }}" @selected((string) old('user_id', $doctor->user_id ?? '') === (string) $user->id)>{{ $user->name }} ({{ $user->email }})</option>@endforeach</select></label>
+<label class="block"><span class="text-gray-700">Name</span><input class="mt-1 block w-full rounded border-gray-300" name="name" value="{{ old('name', $doctor->name ?? '') }}" required></label>
+<label class="block"><span class="text-gray-700">Specialization</span><input class="mt-1 block w-full rounded border-gray-300" name="specialization" value="{{ old('specialization', $doctor->specialization ?? '') }}" required></label>

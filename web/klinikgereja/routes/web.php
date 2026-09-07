@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\DoctorController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -18,6 +19,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::resource('patients', PatientController::class)
+        ->middleware('role:Admin');
+
+    Route::resource('doctors', DoctorController::class)
         ->middleware('role:Admin');
 });
 
