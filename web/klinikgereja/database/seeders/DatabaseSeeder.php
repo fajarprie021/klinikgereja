@@ -24,9 +24,10 @@ class DatabaseSeeder extends Seeder
         $adminRole = Role::where('name', 'Admin')->firstOrFail();
 
         User::updateOrCreate(
-            ['email' => 'admin@klinikgereja.test'],
+            ['username' => 'admin'],
             [
                 'name' => 'Admin Klinik',
+                'email' => null,
                 'password' => 'Admin123!',
                 'role_id' => $adminRole->id,
                 'status' => 'ACTIVE',

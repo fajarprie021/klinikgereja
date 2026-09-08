@@ -34,11 +34,11 @@
 
 - Status: **Done**
 - Checklist:
-  - [ ] UI/route login (GET/POST)
-  - [ ] Logout
-  - [ ] Middleware `auth`
-  - [ ] `User` model memakai tabel `users`
-  - [ ] Redirect policy setelah login
+  - [x] UI/route login berbasis `username` (GET/POST)
+  - [x] Logout
+  - [x] Middleware `auth`
+  - [x] `User` model memakai tabel `users`
+  - [x] Redirect policy setelah login
 
 ### 3) Role & Permission Management
 
