@@ -78,7 +78,7 @@
 
 ### 6) Schedule (Jadwal Dokter)
 
-- Status: **In Progress**
+- Status: **Done**
 - Business goal (MVP v1): menentukan ketersediaan layanan dokter.
 - Checklist:
   - [x] Migration/model `schedules`
@@ -89,15 +89,15 @@
 
 ### 7) Appointment / Antrean
 
-- Status: **Planned**
+- Status: **In Progress**
 - Business goal (MVP v1): menempatkan pasien masuk antrean untuk pemeriksaan.
 - Checklist:
-  - [ ] Migration/model `appointments`
-  - [ ] Endpoint create appointment (pasien + dokter + date)
-  - [ ] Aturan `queue_number` (unik per dokter+tanggal)
-  - [ ] Status flow: WAITING → CHECKED → DONE
-  - [ ] Transisi status hanya oleh role tertentu
-  - [ ] Opsional: CANCELLED + aturan pembatalan
+  - [x] Migration/model `appointments`
+  - [x] Endpoint create appointment (pasien + dokter + date)
+  - [x] Aturan `queue_number` (unik per dokter+tanggal)
+  - [x] Status flow: WAITING → CHECKED → DONE
+  - [x] Transisi status hanya oleh role tertentu
+  - [x] CANCELLED + aturan pembatalan
 
 ### 8) Medical Record (Rekam Medis)
 

@@ -20,4 +20,9 @@ class Patient extends Model
         'patient_type',
         'church_member_number',
     ];
+
+    public function appointments()
+    {
+        return $this->hasMany(Appointment::class);
+    }
 }
