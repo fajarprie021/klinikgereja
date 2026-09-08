@@ -3,6 +3,7 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -22,6 +23,9 @@ Route::middleware('auth')->group(function () {
         ->middleware('role:Admin');
 
     Route::resource('doctors', DoctorController::class)
+        ->middleware('role:Admin');
+
+    Route::resource('schedules', ScheduleController::class)
         ->middleware('role:Admin');
 });
 

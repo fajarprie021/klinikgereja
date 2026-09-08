@@ -67,7 +67,7 @@
 
 ### 5) Doctor Management
 
-- Status: **In Progress**
+- Status: **Done**
 - Business goal (MVP v1): input dan pengelolaan profil dokter.
 - Checklist:
   - [x] Migration/model `doctors`
@@ -78,14 +78,14 @@
 
 ### 6) Schedule (Jadwal Dokter)
 
-- Status: **Planned**
+- Status: **In Progress**
 - Business goal (MVP v1): menentukan ketersediaan layanan dokter.
 - Checklist:
-  - [ ] Migration/model `schedules`
-  - [ ] Validasi `day` (enum/representasi konsisten)
-  - [ ] Validasi jam: `start_time < end_time`
-  - [ ] Validasi overlap jam dokter yang sama
-  - [ ] CRUD schedules (UI/endpoint)
+  - [x] Migration/model `schedules`
+  - [x] Validasi `day` (enum/representasi konsisten)
+  - [x] Validasi jam: `start_time < end_time`
+  - [x] Validasi overlap jam dokter yang sama
+  - [x] CRUD schedules (UI/endpoint)
 
 ### 7) Appointment / Antrean
 
