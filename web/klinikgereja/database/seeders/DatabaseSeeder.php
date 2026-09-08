@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -19,5 +20,18 @@ class DatabaseSeeder extends Seeder
         $this->call([
             RoleSeeder::class,
         ]);
+
+        $adminRole = Role::where('name', 'Admin')->firstOrFail();
+
+        User::updateOrCreate(
+            ['email' => 'admin@klinikgereja.test'],
+            [
+                'name' => 'Admin Klinik',
+                'password' => 'Admin123!',
+                'role_id' => $adminRole->id,
+                'status' => 'ACTIVE',
+                'email_verified_at' => now(),
+            ],
+        );
     }
 }
