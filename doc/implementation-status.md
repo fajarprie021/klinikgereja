@@ -15,7 +15,8 @@
 
 - **Fase 1 (Foundation)**: Setup Laravel, Autentikasi Username, Seeder Admin, dan Role & Permission Management telah selesai.
 - **Fase 2 (Clinical Workflow)**: Modul Pasien, Dokter, Jadwal Dokter, Antrean/Appointment, Rekam Medis (Medical Records), dan Tanda Vital (Vital Signs) telah selesai diimplementasikan dan diuji.
-- **Fase 3 (Financial Workflow)**: Modul Subsidi Kasih, Transaksi & Kasir, Kas Dana Pelayanan Gereja, dan Dashboard Laporan telah selesai diimplementasikan dan diuji secara menyeluruh.
+- **Fase 3 (Financial Workflow)**: Modul Subsidi Kasih, Transaksi & Kasir, Kas Dana Pelayanan Gereja, dan Dashboard Laporan telah selesai diimplementasikan dan diuji.
+- **Fase 4 (Mobile & REST API)**: Seluruh REST API endpoint untuk aplikasi mobile pasien (Registrasi/Login Sanctum, Booking Antrean Mandiri, Live Queue Tracker, dan Riwayat Rekam Medis) telah selesai diimplementasikan dan diuji 100%.
 
 ## Phase 1 — Foundation (Target: Setup Laravel, Database, Auth, Role)
 
@@ -167,23 +168,24 @@
   - [x] Statistik pelayanan pasien (Jemaat vs Umum), kunjungan dokter, nilai subsidi, kas masuk & saldo gereja
   - [x] Cetak / print laporan
 
-## Phase 4 — Mobile (di luar MVP v1, menunggu)
+## Phase 4 — Mobile & REST API
 
-- Status: **Planned**
+- Status: **Done** *(2026-09-20)*
 - Checklist:
-  - [ ] Mobile login pasien
-  - [ ] Booking
-  - [ ] Antrean
-  - [ ] Riwayat medis
+  - [x] Autentikasi Sanctum & registrasi/login pasien mobile (`/api/v1/mobile/auth/*`)
+  - [x] Booking jadwal & antrean dokter mandiri (`/api/v1/mobile/appointments/book`)
+  - [x] Live Queue Tracker & monitoring nomor antrean aktif (`/api/v1/mobile/doctors/{doctor}/live-queue`)
+  - [x] Akses riwayat rekam medis digital pasien (`/api/v1/mobile/medical-records/my-history`)
+  - [x] Automated feature test suite `MobileApiTest`
 
 ---
 
 ## MVP Coverage Check (per 2026-09-20)
 
-Fitur wajib (MVP v1): **Authentication, Role management, Patient Management, Doctor Management, Appointment, Medical Record, Subsidy, Report**
+Fitur wajib (MVP v1 & Mobile API): **Authentication, Role management, Patient Management, Doctor Management, Appointment, Medical Record, Subsidy, Report, Mobile REST API**
 
-- **Selesai (Done - 100% MVP Coverage)**:
-  - ✅ Authentication (Username based) & Role Management (5 Role & Super Admin)
+- **Selesai (Done - 100% Seluruh Fase 1 s/d 4 Selesai)**:
+  - ✅ Authentication (Username based) & Role Management (5 Role + Super Admin)
   - ✅ Patient Management (Jemaat & Umum)
   - ✅ Doctor Management & Doctor Schedules (Validasi overlap jam)
   - ✅ Appointment Queue Flow (WAITING → CHECKED → DONE)
@@ -192,8 +194,7 @@ Fitur wajib (MVP v1): **Authentication, Role management, Patient Management, Doc
   - ✅ Transaksi & Pembayaran Kasir (Kwitansi & perhitungan subsidi)
   - ✅ Kas Dana Pelayanan Gereja (Arus kas masuk & keluar)
   - ✅ Laporan & Dashboard Pelayanan Gereja
-
-- **Dalam Rencana (Fase Lanjutan / Phase 4)**: Mobile App Pasien (Booking & Riwayat Mandiri).
+  - ✅ Mobile REST API (Sanctum Auth, Mobile Booking, Live Queue, Riwayat Medis)
 
 ## Notes / Decision Log
 
@@ -204,3 +205,4 @@ Fitur wajib (MVP v1): **Authentication, Role management, Patient Management, Doc
 - [x] Role & Permission Management disempurnakan dengan 5 role dan Super Admin bypass (2026-09-20).
 - [x] Modul Rekam Medis (Medical Records) dan Tanda Vital (Vital Signs) selesai diimplementasikan dengan otomatisasi transisi status appointment (2026-09-20).
 - [x] Modul Keuangan (Subsidi Kasih, Transaksi & Kasir, Kas Gereja, Dashboard Laporan) selesai diimplementasikan dan diuji (2026-09-20).
+- [x] Mobile REST API Backend (Laravel Sanctum, Booking Antrean, Live Queue Tracker, Riwayat Medis) selesai diimplementasikan dan diuji (2026-09-20).

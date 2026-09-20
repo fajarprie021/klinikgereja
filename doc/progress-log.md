@@ -17,6 +17,7 @@ Dokumen ini mencatat riwayat kemajuan, penanggalan pengerjaan fitur, serta statu
 | **2026-09-20** | - | **Role & Permission Enhancement** | Done | Penyempurnaan RoleMiddleware multi-role & Super Admin, helper role di User model, dan suite test otomatis `RoleTest`. |
 | **2026-09-20** | - | **Medical Records & Vital Signs** | Done | Implementasi modul rekam medis, pemeriksaan tanda vital, relasi antrean, dan suite test otomatis `MedicalRecordTest`. |
 | **2026-09-20** | - | **Financial & Reporting Workflow** | Done | Implementasi subsidi kesehatan, transaksi pembayaran pasien (kwitansi), kas dana gereja, dashboard laporan pelayanan, dan suite test otomatis `FinancialWorkflowTest`. |
+| **2026-09-20** | - | **Mobile & REST API Backend** | Done | Implementasi endpoint REST API mobile (Sanctum Auth, Mobile Booking, Live Queue Tracker, Riwayat Medis) dan suite test otomatis `MobileApiTest`. |
 | **2026-09-20** | - | **Repository Synchronization & Docs** | Done | Sinkronisasi repositori lokal dengan GitHub origin, penambahan tracking tanggal progress. |
 
 ---
@@ -56,6 +57,14 @@ Dokumen ini mencatat riwayat kemajuan, penanggalan pengerjaan fitur, serta statu
 ---
 
 ### 📅 2026-09-20
+- **Mobile & REST API Backend (`Phase 4`)**
+  - Instalasi & integrasi Laravel Sanctum untuk otentikasi mobile token (`Bearer`).
+  - Penambahan kolom `user_id` pada tabel `patients` dan role `Pasien`.
+  - Endpoint Mobile Auth: Registrasi pasien mobile (`/api/v1/mobile/auth/register`), Login (`/api/v1/mobile/auth/login`), Profile Pasien (`/api/v1/mobile/auth/me`), Logout.
+  - Endpoint Mobile Booking & Info: Daftar dokter & jadwal (`/api/v1/mobile/doctors`), Booking antrean mandiri (`/api/v1/mobile/appointments/book`).
+  - Endpoint Live Queue Tracker: Monitoring antrean aktif per dokter & sisa antrean di depan pasien (`/api/v1/mobile/doctors/{doctor}/live-queue`).
+  - Endpoint Riwayat Medis Pasien: Akses diagnosis, tindakan, dan tanda vital pasien (`/api/v1/mobile/medical-records/my-history`).
+  - Feature test otomatis `MobileApiTest` (lulus pengujian).
 - **Alur Keuangan & Laporan (`Financial & Reporting Workflow`)**
   - Pembuatan tabel `subsidies`, `transactions`, dan `church_funds`.
   - Alur Subsidi Kesehatan: Form pengajuan, verifikasi status (`PENDING`/`APPROVED`/`REJECTED`), otorisasi oleh role `Bendahara` / `Super Admin`.

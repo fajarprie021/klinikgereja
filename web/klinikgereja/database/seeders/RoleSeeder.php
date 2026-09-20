@@ -18,6 +18,7 @@ class RoleSeeder extends Seeder
             'Dokter',
             'Perawat',
             'Bendahara',
+            'Pasien',
         ];
 
         foreach ($roles as $roleName) {
