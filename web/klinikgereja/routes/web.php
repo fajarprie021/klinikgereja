@@ -18,7 +18,23 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return view('dashboard');
+    $totalPatients = \App\Models\Patient::count();
+    $todayAppointments = \App\Models\Appointment::whereDate('date', today())->count();
+    $todayChecked = \App\Models\Appointment::whereDate('date', today())->whereIn('status', ['CHECKED', 'DONE'])->count();
+    $totalMedicalRecords = \App\Models\MedicalRecord::count();
+    $pendingSubsidies = \App\Models\Subsidy::where('status', 'PENDING')->count();
+    $recentAppointments = \App\Models\Appointment::with(['patient', 'doctor'])->latest('id')->take(5)->get();
+    $recentMedicalRecords = \App\Models\MedicalRecord::with(['patient', 'doctor'])->latest('id')->take(5)->get();
+
+    return view('dashboard', compact(
+        'totalPatients',
+        'todayAppointments',
+        'todayChecked',
+        'totalMedicalRecords',
+        'pendingSubsidies',
+        'recentAppointments',
+        'recentMedicalRecords'
+    ));
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
