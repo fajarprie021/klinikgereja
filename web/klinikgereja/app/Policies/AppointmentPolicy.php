@@ -8,12 +8,21 @@ use Illuminate\Auth\Access\Response;
 
 class AppointmentPolicy
 {
+    public function before(User $user, string $ability): ?bool
+    {
+        if ($user->hasRole('Super Admin')) {
+            return true;
+        }
+
+        return null;
+    }
+
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return $user->hasRole('Admin') || $user->hasRole('Dokter') || $user->hasRole('Perawat');
+        return $user->hasRole(['Admin', 'Dokter', 'Perawat']);
     }
 
     /**
@@ -42,7 +51,7 @@ class AppointmentPolicy
 
     public function updateStatus(User $user, Appointment $appointment): bool
     {
-        return $user->hasRole('Admin') || $user->hasRole('Dokter') || $user->hasRole('Perawat');
+        return $user->hasRole(['Admin', 'Dokter', 'Perawat']);
     }
 
     /**
@@ -50,7 +59,7 @@ class AppointmentPolicy
      */
     public function delete(User $user, Appointment $appointment): bool
     {
-        return $user->hasRole('Admin') || $user->hasRole('Dokter') || $user->hasRole('Perawat');
+        return $user->hasRole(['Admin', 'Dokter', 'Perawat']);
     }
 
     /**

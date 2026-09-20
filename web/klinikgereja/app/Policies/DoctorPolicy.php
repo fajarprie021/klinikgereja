@@ -6,6 +6,15 @@ use App\Models\Doctor;
 use App\Models\User;
 class DoctorPolicy
 {
+    public function before(User $user, string $ability): ?bool
+    {
+        if ($user->hasRole('Super Admin')) {
+            return true;
+        }
+
+        return null;
+    }
+
     /**
      * Determine whether the user can view any models.
      */

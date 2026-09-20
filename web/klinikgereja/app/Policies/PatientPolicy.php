@@ -10,6 +10,15 @@ class PatientPolicy
 {
     use HandlesAuthorization;
 
+    public function before(User $user, string $ability): ?bool
+    {
+        if ($user->hasRole('Super Admin')) {
+            return true;
+        }
+
+        return null;
+    }
+
     /**
      * MVP: pasien dikelola oleh Admin Klinik.
      */

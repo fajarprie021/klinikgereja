@@ -11,9 +11,9 @@ class RoleMiddleware
     /**
      * Handle an incoming request.
      *
-     * Usage example: middleware('role:Admin')
+     * Usage example: middleware('role:Admin') or middleware('role:Admin,Super Admin')
      */
-    public function handle(Request $request, Closure $next, string $role): Response
+    public function handle(Request $request, Closure $next, ...$roles): Response
     {
         $user = $request->user();
 
@@ -21,13 +21,22 @@ class RoleMiddleware
             abort(403);
         }
 
-        // Ambil relasi role dari users.role_id
-        $userRoleName = $user->role?->name;
-
-        if ($userRoleName !== $role) {
-            abort(403);
+        $allowedRoles = [];
+        foreach ($roles as $role) {
+            foreach (explode('|', $role) as $r) {
+                foreach (explode(',', $r) as $subRole) {
+                    $trimmed = trim($subRole);
+                    if ($trimmed !== '') {
+                        $allowedRoles[] = $trimmed;
+                    }
+                }
+            }
         }
 
-        return $next($request);
+        if ($user->hasRole('Super Admin') || $user->hasRole($allowedRoles)) {
+            return $next($request);
+        }
+
+        abort(403);
     }
 }

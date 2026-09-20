@@ -8,6 +8,15 @@ use Illuminate\Auth\Access\Response;
 
 class SchedulePolicy
 {
+    public function before(User $user, string $ability): ?bool
+    {
+        if ($user->hasRole('Super Admin')) {
+            return true;
+        }
+
+        return null;
+    }
+
     /**
      * Determine whether the user can view any models.
      */

@@ -15,6 +15,60 @@
                     <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">
                         {{ __('Dashboard') }}
                     </x-nav-link>
+
+                    @can('viewAny', App\Models\Patient::class)
+                        <x-nav-link :href="route('patients.index')" :active="request()->routeIs('patients.*')">
+                            Pasien
+                        </x-nav-link>
+                    @endcan
+
+                    @can('viewAny', App\Models\Doctor::class)
+                        <x-nav-link :href="route('doctors.index')" :active="request()->routeIs('doctors.*')">
+                            Dokter
+                        </x-nav-link>
+                    @endcan
+
+                    @can('viewAny', App\Models\Schedule::class)
+                        <x-nav-link :href="route('schedules.index')" :active="request()->routeIs('schedules.*')">
+                            Jadwal
+                        </x-nav-link>
+                    @endcan
+
+                    @can('viewAny', App\Models\Appointment::class)
+                        <x-nav-link :href="route('appointments.index')" :active="request()->routeIs('appointments.*')">
+                            Antrean
+                        </x-nav-link>
+                    @endcan
+
+                    @can('viewAny', App\Models\MedicalRecord::class)
+                        <x-nav-link :href="route('medical-records.index')" :active="request()->routeIs('medical-records.*')">
+                            Rekam Medis
+                        </x-nav-link>
+                    @endcan
+
+                    @can('viewAny', App\Models\Subsidy::class)
+                        <x-nav-link :href="route('subsidies.index')" :active="request()->routeIs('subsidies.*')">
+                            Subsidi
+                        </x-nav-link>
+                    @endcan
+
+                    @can('viewAny', App\Models\Transaction::class)
+                        <x-nav-link :href="route('transactions.index')" :active="request()->routeIs('transactions.*')">
+                            Pembayaran
+                        </x-nav-link>
+                    @endcan
+
+                    @can('viewAny', App\Models\ChurchFund::class)
+                        <x-nav-link :href="route('church-funds.index')" :active="request()->routeIs('church-funds.*')">
+                            Kas Gereja
+                        </x-nav-link>
+                    @endcan
+
+                    @if (Auth::user()->hasRole(['Admin', 'Super Admin', 'Bendahara']))
+                        <x-nav-link :href="route('reports.index')" :active="request()->routeIs('reports.*')">
+                            Laporan
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 

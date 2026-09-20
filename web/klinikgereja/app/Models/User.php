@@ -58,9 +58,62 @@ class User extends Authenticatable
         return $this->hasOne(Doctor::class);
     }
 
-    public function hasRole(string $roleName): bool
+    public function approvedSubsidies()
     {
-        return $this->role?->name === $roleName;
+        return $this->hasMany(Subsidy::class, 'approved_by');
+    }
+
+    public function handledTransactions()
+    {
+        return $this->hasMany(Transaction::class, 'cashier_id');
+    }
+
+    public function churchFunds()
+    {
+        return $this->hasMany(ChurchFund::class);
+    }
+
+    public function hasRole(string|array $roles): bool
+    {
+        if (!$this->role) {
+            return false;
+        }
+
+        if (is_array($roles)) {
+            return in_array($this->role->name, $roles, true);
+        }
+
+        return $this->role->name === $roles;
+    }
+
+    public function hasAnyRole(array $roles): bool
+    {
+        return $this->hasRole($roles);
+    }
+
+    public function isSuperAdmin(): bool
+    {
+        return $this->hasRole('Super Admin');
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->hasRole(['Admin', 'Super Admin']);
+    }
+
+    public function isDoctor(): bool
+    {
+        return $this->hasRole('Dokter');
+    }
+
+    public function isNurse(): bool
+    {
+        return $this->hasRole('Perawat');
+    }
+
+    public function isTreasurer(): bool
+    {
+        return $this->hasRole('Bendahara');
     }
 }
 

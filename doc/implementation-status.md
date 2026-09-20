@@ -1,7 +1,8 @@
 # Implementation Status — Klinik Gereja
 
-> Tracking implementasi sesuai `development-plan.md` dan `workflow.md`.
-> Format ini fokus pada fitur MVP v1.
+> Tracking implementasi sesuai `development-plan.md` dan `workflow.md`.  
+> Log riwayat penanggalan detail dapat dilihat di [`doc/progress-log.md`](./progress-log.md).  
+> **Terakhir Diperbarui:** 2026-09-20
 
 ## Legend
 
@@ -10,29 +11,27 @@
 - **Done**: sudah selesai dan bisa dipakai.
 - **Blocked**: ada kendala/ketergantungan.
 
-## Kondisi Awal
+## Kondisi Terkini (per 2026-09-20)
 
-- Saat ini: **Belum mulai (belum ada implementasi)**
-- Catatan: Laravel sudah ada di proyek lain, tetapi `klinikgereja` belum punya kode Laravel sendiri.
+- **Fase 1 (Foundation)**: Setup Laravel, Autentikasi Username, Seeder Admin, dan Role & Permission Management telah selesai.
+- **Fase 2 (Clinical Workflow)**: Modul Pasien, Dokter, Jadwal Dokter, Antrean/Appointment, Rekam Medis (Medical Records), dan Tanda Vital (Vital Signs) telah selesai diimplementasikan dan diuji.
+- **Fase 3 (Financial Workflow)**: Modul Subsidi Kasih, Transaksi & Kasir, Kas Dana Pelayanan Gereja, dan Dashboard Laporan telah selesai diimplementasikan dan diuji secara menyeluruh.
 
 ## Phase 1 — Foundation (Target: Setup Laravel, Database, Auth, Role)
 
-> Status tetap **Planned** sampai ada kode Laravel khusus `klinikgereja` (route/controller/model/migration).
-> Catatan: Laravel sudah tersedia di proyek lain (`F:\AI\gkj_tgr_sim`, `F:\AI\gkj-laravel`). Jangan scaffold ulang; reuse pattern struktur & komponen.
-
 ### 1) Setup Project & Environment
 
-- Status: **In Progress**
+- Status: **Done** *(2026-09-07)*
 - Checklist:
-  - [x] Siapkan folder Laravel khusus `klinikgereja` (baru di `f:\AI\klinikgereja\web\klinikgereja`)
-  - [ ] Setup `.env` + database connection untuk klinik
-  - [ ] Konvensi folder (models, controllers, policies, requests)
-  - [ ] Migrations siap + mekanisme seed
-  - [ ] Jangan reuse DB/auth aplikasi lain secara langsung
+  - [x] Siapkan folder Laravel khusus `klinikgereja` (`web/klinikgereja`)
+  - [x] Setup `.env` + database connection untuk klinik
+  - [x] Konvensi folder (models, controllers, policies, requests)
+  - [x] Migrations siap + mekanisme seed
+  - [x] Jangan reuse DB/auth aplikasi lain secara langsung
 
 ### 2) Authentication (Login/Logout, session)
 
-- Status: **Done**
+- Status: **Done** *(2026-09-08)*
 - Checklist:
   - [x] UI/route login berbasis `username` (GET/POST)
   - [x] Logout
@@ -42,20 +41,20 @@
 
 ### 3) Role & Permission Management
 
-- Status: **Done**
+- Status: **Done** *(2026-09-20)*
 - Checklist:
-  - [ ] Migration/model `roles`
-  - [ ] Tambah kolom `role_id` pada `users` (migration)
-  - [ ] Relasi Eloquent `User -> Role`
-  - [ ] Gates/policies atau middleware role
-  - [ ] Seeder: `Super Admin`, `Admin`, `Dokter`, `Perawat`, `Bendahara`
-  - [ ] Test dasar: akses route sesuai role
+  - [x] Migration/model `roles`
+  - [x] Tambah kolom `role_id` pada `users` (migration)
+  - [x] Relasi Eloquent `User -> Role`
+  - [x] Gates/policies atau middleware role (Policy terpasang di Doctor, Schedule, Appointment, RoleMiddleware multi-role & Super Admin bypass)
+  - [x] Seeder: `Super Admin`, `Admin`, `Dokter`, `Perawat`, `Bendahara`
+  - [x] Test dasar: akses route sesuai role (`RoleTest`)
 
 ## Phase 2 — Clinical Workflow (Pasien, Dokter, Jadwal, Appointment, Rekam Medis)
 
 ### 4) Patient Management
 
-- Status: **Done**
+- Status: **Done** *(2026-09-07)*
 - Business goal (MVP v1): registrasi pasien + administrasi data pasien.
 - Checklist:
   - [x] Migration/model `patients`
@@ -67,7 +66,7 @@
 
 ### 5) Doctor Management
 
-- Status: **Done**
+- Status: **Done** *(2026-09-07)*
 - Business goal (MVP v1): input dan pengelolaan profil dokter.
 - Checklist:
   - [x] Migration/model `doctors`
@@ -78,7 +77,7 @@
 
 ### 6) Schedule (Jadwal Dokter)
 
-- Status: **Done**
+- Status: **Done** *(2026-09-08)*
 - Business goal (MVP v1): menentukan ketersediaan layanan dokter.
 - Checklist:
   - [x] Migration/model `schedules`
@@ -89,7 +88,7 @@
 
 ### 7) Appointment / Antrean
 
-- Status: **In Progress**
+- Status: **Done** *(2026-09-08)*
 - Business goal (MVP v1): menempatkan pasien masuk antrean untuk pemeriksaan.
 - Checklist:
   - [x] Migration/model `appointments`
@@ -101,71 +100,72 @@
 
 ### 8) Medical Record (Rekam Medis)
 
-- Status: **Planned**
+- Status: **Done** *(2026-09-20)*
 - Business goal (MVP v1): penyimpanan diagnosis dan tindakan dokter.
 - Checklist:
-  - [ ] Migration/model `medical_records`
-  - [ ] Relasi: patient, doctor, appointment
-  - [ ] Saat status appointment CHECKED → DONE, record dibuat/di-update
-  - [ ] Validasi field: complaint/diagnosis/treatment/notes
-  - [ ] CRUD minimal: view per appointment/pasien (MVP)
+  - [x] Migration/model `medical_records`
+  - [x] Relasi: patient, doctor, appointment, vitalSign
+  - [x] Saat status appointment CHECKED → DONE, record dibuat/di-update
+  - [x] Validasi field: complaint/diagnosis/treatment/notes
+  - [x] CRUD: routes + controller + views/API endpoints + search filter
 
 ### 9) Vital Signs (Pemeriksaan awal oleh perawat)
 
-- Status: **Planned**
+- Status: **Done** *(2026-09-20)*
 - Business goal (MVP v1): input tanda vital sebelum dokter memeriksa.
 - Checklist:
-  - [ ] Migration/model `vital_signs`
-  - [ ] Relasi ke `medical_record_id`
-  - [ ] Validasi tipe data & rentang nilai (opsional)
-  - [ ] Endpoint input vital signs oleh role `Perawat`
-  - [ ] Tampilkan ringkasan vital signs di halaman pemeriksaan
+  - [x] Migration/model `vital_signs`
+  - [x] Relasi ke `medical_record_id`
+  - [x] Validasi tipe data & rentang nilai (tekanan darah, suhu, berat, tinggi, nadi, pernapasan)
+  - [x] Endpoint input vital signs oleh role `Perawat` & terintegrasi di form rekam medis
+  - [x] Tampilkan ringkasan vital signs di halaman pemeriksaan / show rekam medis
 
 ## Phase 3 — Financial (Transaksi, Subsidi, Dana Gereja, Laporan)
 
 ### 10) Subsidy (Subsidi Kesehatan)
 
-- Status: **Planned**
+- Status: **Done** *(2026-09-20)*
 - Business goal (MVP v1): aturan subsidi, persetujuan gereja.
 - Checklist:
-  - [ ] Migration/model `subsidies`
-  - [ ] Validasi relasi: patient_id + medical_record_id
-  - [ ] CRUD subsidi + approval UI/endpoint
-  - [ ] Field `amount`, `date`, `approved_by`
-  - [ ] Validasi aturan approval (hanya role Bendahara/Super Admin)
-  - [ ] Audit: perubahan status (opsional)
+  - [x] Migration/model `subsidies`
+  - [x] Validasi relasi: patient_id + medical_record_id
+  - [x] CRUD subsidi + approval UI/endpoint (approve/reject)
+  - [x] Field `amount`, `date`, `approved_by`
+  - [x] Validasi aturan approval (hanya role Bendahara/Super Admin)
+  - [x] Audit/Status: PENDING, APPROVED, REJECTED
 
 ### 11) Transactions / Pembayaran
 
-- Status: **Planned**
+- Status: **Done** *(2026-09-20)*
 - Business goal (MVP v1): hitung total biaya, simpan pembayaran pasien.
 - Checklist:
-  - [ ] Migration/model `transactions`
-  - [ ] Endpoint membuat transaksi setelah pemeriksaan selesai
-  - [ ] Hitung `service_cost` + `subsidy` → `total_payment`
-  - [ ] Validasi skenario tanpa subsidy
-  - [ ] Status transaksi (mis. PAID/UNPAID sesuai kebutuhan)
-  - [ ] Authorization (role Admin/Bendahara sesuai proses)
-  - [ ] Relasi: patient_id + medical_record_id
+  - [x] Migration/model `transactions`
+  - [x] Endpoint membuat transaksi setelah pemeriksaan selesai
+  - [x] Hitung `service_cost` - `subsidy` → `total_payment` (minimum 0)
+  - [x] Validasi skenario tanpa subsidy dan subsidi penuh
+  - [x] Status transaksi: UNPAID, PAID, CANCELLED
+  - [x] Authorization (role Admin/Bendahara)
+  - [x] Relasi: patient_id + medical_record_id + cetak kwitansi
 
 ### 12) Church Funds (Dana Pelayanan)
 
-- Status: **Planned**
+- Status: **Done** *(2026-09-20)*
 - Business goal (MVP v1): pencatatan dana layanan & transparansi.
 - Checklist:
-  - [ ] Migration/model `church_funds`
-  - [ ] Validasi field: `type`, `amount`, `date`, `description`
-  - [ ] CRUD endpoints/UI (role: Bendahara)
-  - [ ] (MVP) Gunakan data dari event pelayanan untuk konsistensi
+  - [x] Migration/model `church_funds`
+  - [x] Validasi field: `type` (INFLOW/OUTFLOW), `category`, `amount`, `date`, `description`
+  - [x] CRUD endpoints/UI (role: Bendahara)
+  - [x] Perhitungan ringkasan saldo kas pelayanan secara otomatis
 
 ### 13) Reports (Laporan Pelayanan Gereja)
 
-- Status: **Planned**
+- Status: **Done** *(2026-09-20)*
 - Business goal (MVP v1): dashboard + laporan gereja dari data pelayanan.
 - Checklist:
-  - [ ] Endpoint/dashboard ringkas
-  - [ ] Report per periode (hari/minggu/bulan)
-  - [ ] Export (opsional)
+  - [x] Endpoint/dashboard ringkas laporan terpadu
+  - [x] Filter report per periode tanggal
+  - [x] Statistik pelayanan pasien (Jemaat vs Umum), kunjungan dokter, nilai subsidi, kas masuk & saldo gereja
+  - [x] Cetak / print laporan
 
 ## Phase 4 — Mobile (di luar MVP v1, menunggu)
 
@@ -178,18 +178,29 @@
 
 ---
 
-## MVP Coverage Check
+## MVP Coverage Check (per 2026-09-20)
 
 Fitur wajib (MVP v1): **Authentication, Role management, Patient Management, Doctor Management, Appointment, Medical Record, Subsidy, Report**
 
-- Status saat ini: **Planned semua** (sebagian sudah setup project Laravel)\*\*
+- **Selesai (Done - 100% MVP Coverage)**:
+  - ✅ Authentication (Username based) & Role Management (5 Role & Super Admin)
+  - ✅ Patient Management (Jemaat & Umum)
+  - ✅ Doctor Management & Doctor Schedules (Validasi overlap jam)
+  - ✅ Appointment Queue Flow (WAITING → CHECKED → DONE)
+  - ✅ Medical Record & Vital Signs (Pemeriksaan dokter & perawat)
+  - ✅ Subsidi Kasih Gereja (Pengajuan & Persetujuan Bendahara)
+  - ✅ Transaksi & Pembayaran Kasir (Kwitansi & perhitungan subsidi)
+  - ✅ Kas Dana Pelayanan Gereja (Arus kas masuk & keluar)
+  - ✅ Laporan & Dashboard Pelayanan Gereja
+
+- **Dalam Rencana (Fase Lanjutan / Phase 4)**: Mobile App Pasien (Booking & Riwayat Mandiri).
 
 ## Notes / Decision Log
 
-- [x] Bootstrap Laravel sudah dibuat di `f:\AI\klinikgereja\web\klinikgereja`.
-- [x] SQLite dipakai dulu (default Laravel).
-- [ ] Implementasi Auth/Role akan lanjut setelah struktur user/role selesai.
-- [ ] Tentukan lokasi kode Laravel klinik: project baru vs reuse `gkj-laravel`/`gkj_tgr_sim`.
-- [ ] Sesuaikan enumerasi `patient_type` & status appointment: WAITING/CHECKED/DONE/CANCELLED
-- [ ] Tentukan aturan `queue_number` (unik per `doctor_id + date` atau lainnya)
-- [ ] Tentukan formula `total_payment` dan skenario tanpa subsidy
+- [x] Bootstrap Laravel sudah dibuat di `web/klinikgereja` (2026-09-07).
+- [x] SQLite dipakai dulu sebagai default database (2026-09-07).
+- [x] Autentikasi berbasis `username` selesai diimplementasikan (2026-09-08).
+- [x] Modul Antrean & Appointment dokter selesai dengan validasi urutan kuota (2026-09-08).
+- [x] Role & Permission Management disempurnakan dengan 5 role dan Super Admin bypass (2026-09-20).
+- [x] Modul Rekam Medis (Medical Records) dan Tanda Vital (Vital Signs) selesai diimplementasikan dengan otomatisasi transisi status appointment (2026-09-20).
+- [x] Modul Keuangan (Subsidi Kasih, Transaksi & Kasir, Kas Gereja, Dashboard Laporan) selesai diimplementasikan dan diuji (2026-09-20).
