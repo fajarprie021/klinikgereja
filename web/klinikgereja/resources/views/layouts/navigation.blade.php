@@ -69,6 +69,12 @@
                             Laporan
                         </x-nav-link>
                     @endif
+
+                    @if (Auth::user()->hasRole('Super Admin'))
+                        <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">
+                            Pengguna
+                        </x-nav-link>
+                    @endif
                 </div>
             </div>
 

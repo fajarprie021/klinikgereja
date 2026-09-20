@@ -11,6 +11,7 @@ use App\Http\Controllers\SubsidyController;
 use App\Http\Controllers\TransactionController;
 use App\Http\Controllers\ChurchFundController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -88,6 +89,10 @@ Route::middleware('auth')->group(function () {
     Route::get('reports', [ReportController::class, 'index'])
         ->name('reports.index')
         ->middleware('role:Bendahara,Admin');
+
+    Route::resource('users', UserController::class)
+        ->only(['index', 'create', 'store', 'edit', 'update', 'destroy'])
+        ->middleware('role:Super Admin');
 });
 
 require __DIR__.'/auth.php';
